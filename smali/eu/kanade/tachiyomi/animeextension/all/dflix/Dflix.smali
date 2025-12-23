@@ -2409,7 +2409,7 @@
 
     const/4 v5, 0x0
 
-    const/16 v7, 0x18
+    const/4 v7, 0x8
 
     const/4 v8, 0x0
 
