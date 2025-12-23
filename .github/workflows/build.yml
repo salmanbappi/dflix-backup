@@ -34,7 +34,7 @@ jobs:
           chmod +x apktool.jar
           sudo mv apktool /usr/local/bin/
           sudo mv apktool.jar /usr/local/bin/
-          apktool -version
+          apktool v
 
       - name: Bump Version
         run: |
