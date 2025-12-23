@@ -42,9 +42,8 @@ jobs:
 
       - name: Sign APK
         run: |
-          keytool -genkey -v -keystore debug.keystore -storepass "zxcvbnmmnbvcxzZ,21" -alias androiddebugkey -keypass "zxcvbnmmnbvcxzZ,21" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
           APKSIGNER=$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)
-          "$APKSIGNER" sign --ks debug.keystore --ks-pass "pass:zxcvbnmmnbvcxzZ,21" --key-pass "pass:zxcvbnmmnbvcxzZ,21" --out target/dflix-signed.apk target/dflix.apk
+          "$APKSIGNER" sign --ks keystore.jks --ks-pass "pass:dflix123" --key-pass "pass:dflix123" --out target/dflix-signed.apk target/dflix.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
