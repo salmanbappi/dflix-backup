@@ -1,0 +1,35 @@
+Signature-Version: 1.0
+Created-By: Android Gradle 8.2.1
+SHA-256-Digest-Manifest: aE/WNjhOydHhj/6yJGYRo8Y8Akbk3qBnv0Yz8vWosOE=
+X-Android-APK-Signed: 2
+
+Name: AndroidManifest.xml
+SHA-256-Digest: 5PTltKu0vQ5oS3N7EEb7GQM3jEajzlHw92xyx2oYKVk=
+
+Name: META-INF/com/android/build/gradle/app-metadata.properties
+SHA-256-Digest: fCzsn7AofFRDYC4m9pDXtg9+lnHrikNVQUCHDKce9Fg=
+
+Name: classes.dex
+SHA-256-Digest: xvULmdGFtgS21m2igJB5GhCyI4WsAxiPVRwpm+PQmK0=
+
+Name: kotlin-tooling-metadata.json
+SHA-256-Digest: 5Qm46Di+RTWQIgpJuzp6KuMncJX5AN8ZcvuaW11aNc4=
+
+Name: res/9w.png
+SHA-256-Digest: mQ70xiSQQtaPnpImayHkI4lkV6rix7BM7UDBDcc11fM=
+
+Name: res/FS.png
+SHA-256-Digest: +8TXOsxDwZQSBSZ9WR8ve8CHGeOGj/9Hs2Y/tIFpZDY=
+
+Name: res/RJ.png
+SHA-256-Digest: FyU0qJM5yPvLfSLip1HulFt2kBfi+qPJpb42vLPJjgo=
+
+Name: res/o-.png
+SHA-256-Digest: TjpVIp+mH23bzBEGODKyFcPQFZMVIupEOq9RdSbXDSs=
+
+Name: res/yn.png
+SHA-256-Digest: Woh4d+PkoVmYCyNgwHz/Lh0kLmRfLYG7LOzcr+SjAv0=
+
+Name: resources.arsc
+SHA-256-Digest: d4Z4XAIR0qJZwrUilwY3hXXE1OAcALMjPMUplGaoNwE=
+
