@@ -2369,22 +2369,23 @@
 
     move-result-object v2
 
+    move-object v4, v2
+
     invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
 
     move-result-object p2
 
-    if-eqz p2, :cond_video_url_fallback
+    if-eqz p2, :cond_use_default_quality
 
-    move-object v4, p2
+    move-object v3, p2
 
     goto :goto_1
 
-    :cond_video_url_fallback
-    move-object v4, v2
+    :cond_use_default_quality
+    const-string v3, "Default"
 
     .line 244
     :goto_1
-        const-string v3, "Default"
             new-instance v6, Lokhttp3/Headers$Builder;
         
             invoke-direct {v6}, Lokhttp3/Headers$Builder;-><init>()V
