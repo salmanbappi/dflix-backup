@@ -2261,33 +2261,22 @@
 
     .line 243
     :goto_0
-    invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getUrl()Ljava/lang/String;
+    invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
 
     move-result-object p2
 
-    if-nez p2, :cond_1
+    if-eqz p2, :cond_video_url_fallback
 
-    move-object v4, v0
+    move-object v4, p2
 
     goto :goto_1
 
-    :cond_1
-    move-object v4, p2
+    :cond_video_url_fallback
+    move-object v4, v2
 
     .line 244
     :goto_1
-    invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
-
-    move-result-object p1
-
-    if-nez p1, :cond_2
-
-    move-object v3, v0
-
-    goto :goto_2
-
-    :cond_2
-    move-object v3, p1
+    const-string v3, "Default"
 
     .line 241
     :goto_2

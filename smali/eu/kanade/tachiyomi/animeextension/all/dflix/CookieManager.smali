@@ -250,29 +250,7 @@
 
     :catch_0
     move-exception v0
-
-    .line 36
-    new-instance v1, Ljava/lang/Exception;
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    const-string v3, "Failed to get cookies: "
-
-    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
-
-    invoke-virtual {v0}, Ljava/io/IOException;->getMessage()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-direct {v1, v0}, Ljava/lang/Exception;-><init>(Ljava/lang/String;)V
-
-    throw v1
+    throw v0
 .end method
 
 .method private final getCookiesSafe()Ljava/util/List;
