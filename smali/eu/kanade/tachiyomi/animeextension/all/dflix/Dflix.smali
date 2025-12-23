@@ -2356,17 +2356,10 @@
     .line 243
     :goto_0
     const-string v3, "http://"
-
+    check-cast v3, Ljava/lang/CharSequence;
     const-string v4, "https://"
-
-    const/4 v5, 0x0
-
-    const/4 v6, 0x4
-
-    const/4 v7, 0x0
-
-    invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
-
+    check-cast v4, Ljava/lang/CharSequence;
+    invoke-virtual {v2, v3, v4}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
     move-result-object v2
 
     invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
