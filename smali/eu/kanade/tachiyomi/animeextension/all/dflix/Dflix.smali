@@ -749,6 +749,10 @@
     .line 49
     invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
 
+    const-string v2, "User-Agent"
+    const-string v3, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+
     const-string v2, "Cookie"
 
     .line 50
@@ -812,7 +816,7 @@
 
     check-cast p1, Ljava/lang/CharSequence;
 
-    const-string v0, "\"/m/lazyload/"
+    const-string v0, "\"/m/lazy_load/"
 
     check-cast v0, Ljava/lang/CharSequence;
 
@@ -826,6 +830,21 @@
 
     move-result v0
 
+    if-eqz v0, :cond_check_m_legacy
+
+    const-string v3, "m"
+
+    goto :goto_0
+
+    :cond_check_m_legacy
+    const-string v0, "\"/m/lazyload/"
+
+    check-cast v0, Ljava/lang/CharSequence;
+
+    invoke-static {p1, v0, v1, v2, v3}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v0
+
     if-eqz v0, :cond_0
 
     const-string v3, "m"
@@ -833,6 +852,21 @@
     goto :goto_0
 
     :cond_0
+    const-string v0, "\"/s/lazy_load/"
+
+    check-cast v0, Ljava/lang/CharSequence;
+
+    invoke-static {p1, v0, v1, v2, v3}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_check_s_legacy
+
+    const-string v3, "s"
+
+    goto :goto_0
+
+    :cond_check_s_legacy
     const-string v0, "\"/s/lazyload/"
 
     .line 166
@@ -2321,6 +2355,20 @@
 
     .line 243
     :goto_0
+    const-string v3, "http://"
+
+    const-string v4, "https://"
+
+    const/4 v5, 0x0
+
+    const/4 v6, 0x4
+
+    const/4 v7, 0x0
+
+    invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v2
+
     invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
 
     move-result-object p2
@@ -2336,13 +2384,21 @@
 
     .line 244
     :goto_1
-    const-string v3, "Default"
-
-    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getGlobalHeaders()Lokhttp3/Headers;
-
-    move-result-object v6
-
-    .line 241
+        const-string v3, "Default"
+        new-instance v6, Lokhttp3/Headers$Builder;
+    
+        invoke-direct {v6}, Lokhttp3/Headers$Builder;-><init>()V
+    
+        const-string v0, "User-Agent"
+    
+        const-string v1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    
+        invoke-virtual {v6, v0, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+    
+        invoke-virtual {v6}, Lokhttp3/Headers$Builder;->build()Lokhttp3/Headers;
+    
+        move-result-object v6
+        .line 241
     :goto_2
     new-instance p1, Leu/kanade/tachiyomi/animesource/model/Video;
 

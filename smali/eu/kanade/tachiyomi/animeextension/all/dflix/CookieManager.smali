@@ -121,6 +121,12 @@
 
     move-result-object v0
 
+    const-string v2, "User-Agent"
+
+    const-string v3, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+    invoke-virtual {v0, v2, v3}, Lokhttp3/Request$Builder;->header(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;
+
     invoke-virtual {v0}, Lokhttp3/Request$Builder;->build()Lokhttp3/Request;
 
     move-result-object v0
@@ -266,7 +272,7 @@
 
     iget-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/CookieManager;->cookies:Ljava/util/List;
 
-    if-nez v0, :cond_1
+    nop
 
     .line 20
     monitor-enter p0
@@ -274,7 +280,7 @@
     :try_start_0
     iget-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/CookieManager;->cookies:Ljava/util/List;
 
-    if-nez v0, :cond_0
+    nop
 
     .line 21
     invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/CookieManager;->fetchCookies()Ljava/util/List;

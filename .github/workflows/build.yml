@@ -1,7 +1,13 @@
 name: Build Dflix
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -23,18 +29,48 @@ jobs:
       - name: Install Apktool
         run: |
           wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
-          wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.9.3.jar -O apktool.jar
+          wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.12.0.jar -O apktool.jar
           chmod +x apktool
           chmod +x apktool.jar
           sudo mv apktool /usr/local/bin/
           sudo mv apktool.jar /usr/local/bin/
           apktool -version
 
+      - name: Bump Version
+        run: |
+          chmod +x .github/scripts/update_version.sh
+          ./.github/scripts/update_version.sh
+
       - name: Build APK
         run: |
-          # Ensure aapt2 is found. GitHub runners have build-tools.
-          # We can try running apktool directly.
-          apktool b . -o dflix-unsigned.apk --use-aapt2 || apktool b . -o dflix-unsigned.apk
+          # Find build-tools and add to PATH for aapt2
+          BUILD_TOOLS_DIR=$(find $ANDROID_SDK_ROOT/build-tools -maxdepth 2 -type d -name "3*" | sort -r | head -n 1)
+          if [ -z "$BUILD_TOOLS_DIR" ]; then
+            BUILD_TOOLS_DIR=$(find $ANDROID_SDK_ROOT/build-tools -maxdepth 1 -type d | sort -r | head -n 1)
+          fi
+          export PATH=$PATH:$BUILD_TOOLS_DIR
+          echo "Using build-tools from: $BUILD_TOOLS_DIR"
+          
+          # Try building and capture output
+          if apktool b . -o dflix-unsigned.apk --use-aapt2 > build_log.txt 2>&1; then
+            echo "Build successful with aapt2"
+          else
+            echo "Build with aapt2 failed, retrying without..." >> build_log.txt
+            if apktool b . -o dflix-unsigned.apk >> build_log.txt 2>&1; then
+               echo "Build successful without aapt2"
+            else
+               echo "Build failed!"
+               cat build_log.txt
+               exit 1
+            fi
+          fi
+
+      - name: Upload Build Logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: build_log.txt
 
       - name: Sign APK
         run: |
@@ -54,12 +90,24 @@ jobs:
           path: dflix.apk
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
+        if: success()
         with:
           tag_name: v1.0.${{ github.run_number }}
           name: Release v1.0.${{ github.run_number }}
           files: dflix.apk
           draft: false
           prerelease: false
+          generate_release_notes: true
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit Version Bump
+        if: success()
+        run: |
+          git config --global user.name "Gemini Automation"
+          git config --global user.email "gemini@automation.bot"
+          git add apktool.yml
+          git commit -m "chore: bump version code [skip ci]"
+          git push
