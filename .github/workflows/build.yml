@@ -39,13 +39,13 @@ jobs:
       - name: Sign APK
         run: |
           # Generate a debug keystore
-          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          keytool -genkey -v -keystore debug.keystore -storepass "zxcvbnmmnbvcxzZ,21" -alias androiddebugkey -keypass "zxcvbnmmnbvcxzZ,21" -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
           
           # Find apksigner
           APKSIGNER=$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)
           echo "Using apksigner: $APKSIGNER"
           
-          "$APKSIGNER" sign --ks debug.keystore --ks-pass pass:android --key-pass pass:android --out dflix.apk dflix-unsigned.apk
+          "$APKSIGNER" sign --ks debug.keystore --ks-pass "pass:zxcvbnmmnbvcxzZ,21" --key-pass "pass:zxcvbnmmnbvcxzZ,21" --out dflix.apk dflix-unsigned.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

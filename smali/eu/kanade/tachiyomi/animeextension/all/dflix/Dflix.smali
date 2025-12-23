@@ -799,13 +799,32 @@
 
     invoke-static {p1, v0, v1, v2, v3}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
 
-    move-result p1
+    move-result v0
 
-    if-eqz p1, :cond_1
+    if-eqz v0, :cond_1
 
     const-string v3, "s"
 
+    goto :goto_0
+
     :cond_1
+    const-string v0, "/s/view/"
+
+    check-cast v0, Ljava/lang/CharSequence;
+
+    invoke-static {p1, v0, v1, v2, v3}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_2
+
+    const-string v3, "s"
+
+    goto :goto_0
+
+    :cond_2
+    const-string v3, "m"
+
     :goto_0
     return-object v3
 .end method
