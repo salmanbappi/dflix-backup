@@ -2385,20 +2385,25 @@
     .line 244
     :goto_1
         const-string v3, "Default"
-        new-instance v6, Lokhttp3/Headers$Builder;
-    
-        invoke-direct {v6}, Lokhttp3/Headers$Builder;-><init>()V
-    
-        const-string v0, "User-Agent"
-    
-        const-string v1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    
-        invoke-virtual {v6, v0, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
-    
-        invoke-virtual {v6}, Lokhttp3/Headers$Builder;->build()Lokhttp3/Headers;
-    
-        move-result-object v6
-        .line 241
+            new-instance v6, Lokhttp3/Headers$Builder;
+        
+            invoke-direct {v6}, Lokhttp3/Headers$Builder;-><init>()V
+        
+            const-string v0, "User-Agent"
+        
+            const-string v1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        
+            invoke-virtual {v6, v0, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+        
+            const-string v0, "Referer"
+        
+            const-string v1, "https://dflix.discoveryftp.net/"
+        
+            invoke-virtual {v6, v0, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+        
+            invoke-virtual {v6}, Lokhttp3/Headers$Builder;->build()Lokhttp3/Headers;
+        
+            move-result-object v6        .line 241
     :goto_2
     new-instance p1, Leu/kanade/tachiyomi/animesource/model/Video;
 
