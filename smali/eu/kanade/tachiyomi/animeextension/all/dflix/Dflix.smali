@@ -722,32 +722,73 @@
 .method private final getCookieHeader()Ljava/lang/String;
     .locals 1
 
-    iget-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->cookieHeader$delegate:Lkotlin/Lazy;
-
     .line 45
-    invoke-interface {v0}, Lkotlin/Lazy;->getValue()Ljava/lang/Object;
+    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getCm()Leu/kanade/tachiyomi/animeextension/all/dflix/CookieManager;
 
     move-result-object v0
 
-    check-cast v0, Ljava/lang/String;
+    invoke-virtual {v0}, Leu/kanade/tachiyomi/animeextension/all/dflix/CookieManager;->getCookiesHeaders()Ljava/lang/String;
+
+    move-result-object v0
 
     return-object v0
 .end method
 
 .method private final getGlobalHeaders()Lokhttp3/Headers;
-    .locals 1
+    .locals 4
 
-    iget-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->globalHeaders$delegate:Lkotlin/Lazy;
+    .line 48
+    new-instance v0, Lokhttp3/Headers$Builder;
 
-    .line 47
-    invoke-interface {v0}, Lkotlin/Lazy;->getValue()Ljava/lang/Object;
+    invoke-direct {v0}, Lokhttp3/Headers$Builder;-><init>()V
+
+    const-string v2, "Accept"
+
+    const-string v3, "*/*"
+
+    .line 49
+    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+
+    const-string v2, "Cookie"
+
+    .line 50
+    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getCookieHeader()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+
+    .line 51
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getBaseUrl()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const/16 v1, 0x2f
+
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v2, "Referer"
+
+    invoke-virtual {v0, v2, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
+
+    .line 52
+    invoke-virtual {v0}, Lokhttp3/Headers$Builder;->build()Lokhttp3/Headers;
 
     move-result-object v0
 
-    check-cast v0, Lokhttp3/Headers;
-
     return-object v0
 .end method
+
 
 .method private final getMediaType(Lorg/jsoup/nodes/Document;)Ljava/lang/String;
     .locals 4
@@ -2297,13 +2338,15 @@
     :goto_1
     const-string v3, "Default"
 
+    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getGlobalHeaders()Lokhttp3/Headers;
+
+    move-result-object v6
+
     .line 241
     :goto_2
     new-instance p1, Leu/kanade/tachiyomi/animesource/model/Video;
 
     const/4 v5, 0x0
-
-    const/4 v6, 0x0
 
     const/16 v7, 0x18
 
