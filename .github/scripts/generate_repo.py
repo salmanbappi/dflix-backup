@@ -2,6 +2,7 @@ import json
 import yaml
 import os
 import hashlib
+import urllib.request
 
 def get_apk_size(file_path):
     return os.path.getsize(file_path)
@@ -10,7 +11,15 @@ def get_file_sha256(file_path):
     with open(file_path, "rb") as f:
         return hashlib.sha256(f.read()).hexdigest()
 
+def get_external_repo_data(url):
+    try:
+        with urllib.request.urlopen(url) as response:
+            return json.loads(response.read().decode())
+    except:
+        return []
+
 def generate():
+    # 1. Process current repo (Dflix)
     with open("apktool.yml", "r") as f:
         apktool = yaml.safe_load(f)
     
@@ -18,12 +27,10 @@ def generate():
     version_name = version_info.get("versionName")
     version_code = version_info.get("versionCode")
     
-    # Find the versioned APK
     version_suffix = f"v{version_name}"
     apk_name = f"dflix-{version_suffix}.apk"
-    apk_path = apk_name
     
-    item = {
+    dflix_item = {
         "name": "Aniyomi: Dflix",
         "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
         "apk": apk_name,
@@ -36,16 +43,27 @@ def generate():
         "icon": "https://raw.githubusercontent.com/salmanbappi/dflix/master/res/mipmap-xxxhdpi/ic_launcher.png"
     }
     
-    if os.path.exists(apk_path):
-        item["size"] = get_apk_size(apk_path)
-        item["sha256"] = get_file_sha256(apk_path)
+    if os.path.exists(apk_name):
+        dflix_item["size"] = get_apk_size(apk_name)
+        dflix_item["sha256"] = get_file_sha256(apk_name)
 
-    # index.min.json
-    repo_data = [item]
+    # 2. Fetch or Add DhakaFlix data
+    # We point to the DhakaFlix APK with an absolute URL since it's in another repo
+    dhaka_data = get_external_repo_data("https://raw.githubusercontent.com/salmanbappi/dhakaflix/repo/index.min.json")
+    
+    repo_data = [dflix_item]
+    for item in dhaka_data:
+        # Update DhakaFlix APK path to be absolute
+        if not item["apk"].startswith("http"):
+            item["apk"] = f"https://raw.githubusercontent.com/salmanbappi/dhakaflix/repo/{item['apk']}"
+        if item["pkg"] != dflix_item["pkg"]:
+            repo_data.append(item)
+
+    # 3. Save index.min.json
     with open("index.min.json", "w") as f:
         json.dump(repo_data, f, separators=(',', ':'))
 
-    # repo.json
+    # 4. Save repo.json
     repo_info = {
         "meta": {
             "name": "SalmanBappi Extensions",
