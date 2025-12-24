@@ -23,8 +23,11 @@ def generate():
     apk_name = f"dflix-{version_suffix}.apk"
     apk_path = apk_name
     
+    # Use absolute URL for APK
+    apk_url = f"https://raw.githubusercontent.com/salmanbappi/dflix/repo/{apk_name}"
+    
     item = {
-        "name": "Aniyomi: Dflix",
+        "name": "Dflix",
         "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
         "apk": apk_name,
         "lang": "all",
@@ -33,13 +36,7 @@ def generate():
         "nsfw": 0,
         "hasReadme": 0,
         "hasChangelog": 0,
-        "sources": [
-            {
-                "name": "Dflix",
-                "id": 1751741231480, # Constant ID for Dflix
-                "baseUrl": "https://dflix.discoveryftp.net"
-            }
-        ]
+        "icon": "https://raw.githubusercontent.com/salmanbappi/dflix/master/res/mipmap-xxxhdpi/ic_launcher.png"
     }
     
     if os.path.exists(apk_path):
