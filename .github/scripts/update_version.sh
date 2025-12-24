@@ -15,8 +15,12 @@ fi
 
 NEW_CODE=$((CURRENT_CODE + 1))
 
-# Update apktool.yml using sed with flexible whitespace matching
-# Matches "versionCode:" followed by any spaces, then the number
-sed -i "s/versionCode:[[:space:]]*$CURRENT_CODE/versionCode: $NEW_CODE/" "$APKTOOL_YML"
+# Extract base versionName (e.g., 14.18)
+BASE_VERSION=$(grep "versionName:" "$APKTOOL_YML" | awk '{print $2}' | tr -d "'\"" | cut -d. -f1,2)
+NEW_VERSION="${BASE_VERSION}.${NEW_CODE}"
 
-echo "Bumped versionCode from $CURRENT_CODE to $NEW_CODE"
+# Update apktool.yml
+sed -i "s/versionCode:[[:space:]]*$CURRENT_CODE/versionCode: $NEW_CODE/" "$APKTOOL_YML"
+sed -i "s/versionName:[[:space:]]*[0-9.]*/versionName: $NEW_VERSION/" "$APKTOOL_YML"
+
+echo "Bumped versionCode to $NEW_CODE and versionName to $NEW_VERSION"
