@@ -70,10 +70,12 @@
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget-object v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->state:Ljava/lang/Object;
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->getState()Ljava/lang/Object;
+    move-result-object v1
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
+
     packed-switch v1, :pswitch_data_0
     goto :default_mode
 :pswitch_0
@@ -85,7 +87,8 @@
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget-object v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->state:Ljava/lang/Object;
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->getState()Ljava/lang/Object;
+    move-result-object v1
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
@@ -104,7 +107,8 @@
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget-object v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->state:Ljava/lang/Object;
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->getState()Ljava/lang/Object;
+    move-result-object v1
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
@@ -123,7 +127,8 @@
     invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget-object v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->state:Ljava/lang/Object;
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->getState()Ljava/lang/Object;
+    move-result-object v1
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
@@ -133,7 +138,8 @@
     invoke-interface {p1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v2
     check-cast v2, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget-object v2, v2, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->state:Ljava/lang/Object;
+    invoke-virtual {v2}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter;->getState()Ljava/lang/Object;
+    move-result-object v2
     check-cast v2, Ljava/lang/Integer;
     invoke-virtual {v2}, Ljava/lang/Integer;->intValue()I
     move-result v2
