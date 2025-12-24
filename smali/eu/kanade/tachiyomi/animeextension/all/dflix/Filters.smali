@@ -162,14 +162,14 @@
 :pswitch_5
     const-string v0, "https://dflix.discoveryftp.net/m/lan/English"
     return-object v0
-    .data
-    :pswitch_data_0
-    .packed-switch 0x0
-        :pswitch_0
-        :pswitch_1
-        :pswitch_2
-        :pswitch_3
-        :pswitch_4
-        :pswitch_5
-    .end packed-switch
+
+:pswitch_data_0
+.packed-switch 0x0
+    :pswitch_0
+    :pswitch_1
+    :pswitch_2
+    :pswitch_3
+    :pswitch_4
+    :pswitch_5
+.end packed-switch
 .end method
