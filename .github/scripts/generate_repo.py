@@ -80,5 +80,17 @@ def generate():
     with open("index.min.json", "w") as f:
         json.dump(repo_data, f, separators=(',', ':'))
 
+    # 4. Save repo.json
+    repo_info = {
+        "meta": {
+            "name": "SalmanBappi Extensions",
+            "shortName": "salmanbappi",
+            "website": "https://github.com/salmanbappi/dflix",
+            "signingKeyFingerprint": "c7ebe223044970f2f9738f600dc25c180d3ed03994e088aaf5709338c57b93af"
+        }
+    }
+    with open("repo.json", "w") as f:
+        json.dump(repo_info, f, indent=2)
+
 if __name__ == "__main__":
     generate()
