@@ -47,11 +47,12 @@ def generate():
 
     # repo.json
     repo_info = {
-        "name": "SalmanBappi Extensions",
-        "author": "salmanbappi",
-        "description": "Custom extensions for Anikku/Aniyomi",
-        "website": "https://github.com/salmanbappi/dflix",
-        "baseUrl": "https://salmanbappi.github.io/dflix"
+        "meta": {
+            "name": "SalmanBappi Extensions",
+            "shortName": "salmanbappi",
+            "website": "https://github.com/salmanbappi/dflix",
+            "signingKeyFingerprint": "c7ebe223044970f2f9738f600dc25c180d3ed03994e088aaf5709338c57b93af"
+        }
     }
     with open("repo.json", "w") as f:
         json.dump(repo_info, f, indent=2)
