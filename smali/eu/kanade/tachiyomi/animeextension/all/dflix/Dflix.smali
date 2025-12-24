@@ -2181,6 +2181,41 @@
         }
     .end annotation
 
+    invoke-virtual {p2}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_filter_search
+
+    invoke-virtual {p3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_filter_search
+
+    invoke-virtual {p0, p1, p2, p3}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->searchAnimeRequest(ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Lokhttp3/Request;
+
+    move-result-object p1
+
+    iget-object p2, p0, Leu/kanade/tachiyomi/animesource/online/AnimeHttpSource;->client:Lokhttp3/OkHttpClient;
+
+    invoke-virtual {p2, p1}, Lokhttp3/OkHttpClient;->newCall(Lokhttp3/Request;)Lokhttp3/Call;
+
+    move-result-object p1
+
+    invoke-static {p1, p4}, Leu/kanade/tachiyomi/network/OkHttpExtensionsKt;->await(Lokhttp3/Call;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Lokhttp3/Response;
+
+    invoke-virtual {p0, p1}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->latestUpdatesParse(Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
+
+    move-result-object p1
+
+    return-object p1
+
+    :cond_filter_search
     instance-of p1, p4, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix$getSearchAnime$1;
 
     if-eqz p1, :cond_0
@@ -2755,8 +2790,18 @@
     throw p1
 .end method
 
+.method public getFilterList()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
+    .locals 1
+
+    invoke-static {}, Leu/kanade/tachiyomi/animeextension/all/dflix/Filters;->getFilterList()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method protected searchAnimeRequest(ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Lokhttp3/Request;
-    .locals 0
+    .locals 3
 
     const-string p1, "query"
 
@@ -2766,14 +2811,21 @@
 
     invoke-static {p3, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
 
-    .line 139
-    new-instance p1, Lkotlin/NotImplementedError;
+    invoke-static {p2, p3}, Leu/kanade/tachiyomi/animeextension/all/dflix/Filters;->getUrl(Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Ljava/lang/String;
 
-    const/4 p2, 0x0
+    move-result-object p1
 
-    const/4 p3, 0x1
+    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getGlobalHeaders()Lokhttp3/Headers;
 
-    invoke-direct {p1, p2, p3, p2}, Lkotlin/NotImplementedError;-><init>(Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+    move-result-object v0
 
-    throw p1
+    const/4 v1, 0x0
+
+    const/4 v2, 0x4
+
+    invoke-static {p1, v0, v1, v2, v1}, Leu/kanade/tachiyomi/network/RequestsKt;->GET$default(Ljava/lang/String;Lokhttp3/Headers;Lokhttp3/CacheControl;ILjava/lang/Object;)Lokhttp3/Request;
+
+    move-result-object p1
+
+    return-object p1
 .end method
