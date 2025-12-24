@@ -54,6 +54,12 @@
 
 .method public static getUrl(Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Ljava/lang/String;
     .locals 6
+
+    if-nez p0, :cond_query_not_null
+
+    const-string p0, ""
+
+    :cond_query_not_null
     invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
     move-result v0
     if-nez v0, :cond_query

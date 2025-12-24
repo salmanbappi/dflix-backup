@@ -2181,12 +2181,22 @@
         }
     .end annotation
 
+    if-nez p2, :cond_q_not_null
+
+    const-string p2, ""
+
+    :cond_q_not_null
     invoke-virtual {p2}, Ljava/lang/String;->isEmpty()Z
 
     move-result v0
 
     if-eqz v0, :cond_filter_search
 
+    if-nez p3, :cond_f_not_null
+
+    goto :cond_filter_search
+
+    :cond_f_not_null
     invoke-virtual {p3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;->isEmpty()Z
 
     move-result v0
