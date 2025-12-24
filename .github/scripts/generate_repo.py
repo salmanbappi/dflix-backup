@@ -22,7 +22,7 @@ def get_external_repo_data(url):
         return []
 
 def generate():
-    # 1. Process current repo (Dflix)
+    # 1. Process Dflix
     with open("apktool.yml", "r") as f:
         apktool = yaml.safe_load(f)
     
@@ -30,13 +30,12 @@ def generate():
     version_name = version_info.get("versionName")
     version_code = version_info.get("versionCode")
     
-    version_suffix = f"v{version_name}"
-    apk_name = f"dflix-{version_suffix}.apk"
+    dflix_apk = f"dflix-v{version_name}.apk"
     
     dflix_item = {
         "name": "Aniyomi: Dflix",
         "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
-        "apk": apk_name,
+        "apk": dflix_apk,
         "lang": "all",
         "code": int(version_code),
         "version": str(version_name),
@@ -46,37 +45,40 @@ def generate():
         "icon": "https://raw.githubusercontent.com/salmanbappi/dflix/master/res/mipmap-xxxhdpi/ic_launcher.png"
     }
     
-    if os.path.exists(apk_name):
-        dflix_item["size"] = get_apk_size(apk_name)
-        dflix_item["sha256"] = get_file_sha256(apk_name)
+    if os.path.exists(dflix_apk):
+        dflix_item["size"] = get_apk_size(dflix_apk)
+        dflix_item["sha256"] = get_file_sha256(dflix_apk)
 
-    # 2. Fetch or Add DhakaFlix data
-    dhaka_data = get_external_repo_data("https://raw.githubusercontent.com/salmanbappi/dhakaflix/repo/index.min.json")
-    
     repo_data = [dflix_item]
-    for item in dhaka_data:
-        # Update external APK path to be absolute so Anikku knows where to download it from
-        if not item["apk"].startswith("http"):
-            item["apk"] = f"https://raw.githubusercontent.com/salmanbappi/dhakaflix/repo/{item['apk']}"
-        # Avoid duplicates
-        if item["pkg"] != dflix_item["pkg"]:
-            repo_data.append(item)
 
-    # 3. Save combined index.min.json
+    # 2. Process DhakaFlix (should be downloaded in current dir by workflow)
+    dhaka_apks = [f for f in os.listdir(".") if f.startswith("dhakaflix-v") and f.endswith(".apk")]
+    if dhaka_apks:
+        dhaka_apk = dhaka_apks[0]
+        # Extract version from filename: dhakaflix-v14.42.apk -> 14.42
+        dhaka_version = dhaka_apk.replace("dhakaflix-v", "").replace(".apk", "")
+        # Extract code from version (assuming BUILD_NUMBER is the suffix)
+        dhaka_code = dhaka_version.split(".")[-1]
+        
+        dhaka_item = {
+            "name": "Aniyomi: DhakaFlix",
+            "pkg": "eu.kanade.tachiyomi.animeextension.all.dhakaflix",
+            "apk": dhaka_apk,
+            "lang": "all",
+            "code": int(dhaka_code),
+            "version": dhaka_version,
+            "nsfw": 0,
+            "hasReadme": 0,
+            "hasChangelog": 0,
+            "icon": "https://raw.githubusercontent.com/salmanbappi/dhakaflix/master/res/mipmap-xxxhdpi/ic_launcher.png",
+            "size": get_apk_size(dhaka_apk),
+            "sha256": get_file_sha256(dhaka_apk)
+        }
+        repo_data.append(dhaka_item)
+
+    # 3. Save index.min.json
     with open("index.min.json", "w") as f:
         json.dump(repo_data, f, separators=(',', ':'))
-
-    # 4. Save repo.json
-    repo_info = {
-        "meta": {
-            "name": "SalmanBappi Extensions",
-            "shortName": "salmanbappi",
-            "website": "https://github.com/salmanbappi/dflix",
-            "signingKeyFingerprint": "c7ebe223044970f2f9738f600dc25c180d3ed03994e088aaf5709338c57b93af"
-        }
-    }
-    with open("repo.json", "w") as f:
-        json.dump(repo_info, f, indent=2)
 
 if __name__ == "__main__":
     generate()
