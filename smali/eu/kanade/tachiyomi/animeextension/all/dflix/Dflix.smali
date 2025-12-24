@@ -2205,11 +2205,9 @@
 
     move-result-object p1
 
-    invoke-static {p1, p4}, Leu/kanade/tachiyomi/network/OkHttpExtensionsKt;->await(Lokhttp3/Call;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+    invoke-interface {p1}, Lokhttp3/Call;->execute()Lokhttp3/Response;
 
     move-result-object p1
-
-    check-cast p1, Lokhttp3/Response;
 
     invoke-virtual {p0, p1}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->latestUpdatesParse(Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
 
