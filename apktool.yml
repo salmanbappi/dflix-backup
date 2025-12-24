@@ -9,8 +9,8 @@ sdkInfo:
 packageInfo:
   forcedPackageId: 127
 versionInfo:
-  versionCode: 66
-  versionName: 14.66
+  versionCode: 68
+  versionName: 14.68
 doNotCompress:
 - arsc
 - png
