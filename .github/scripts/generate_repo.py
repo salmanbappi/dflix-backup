@@ -24,15 +24,22 @@ def generate():
     apk_path = apk_name
     
     item = {
-        "name": "Dflix",
+        "name": "Aniyomi: Dflix",
         "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
         "apk": apk_name,
         "lang": "all",
-        "code": version_code,
-        "version": version_name,
+        "code": int(version_code),
+        "version": str(version_name),
         "nsfw": 0,
         "hasReadme": 0,
         "hasChangelog": 0,
+        "sources": [
+            {
+                "name": "Dflix",
+                "id": 1751741231480, # Constant ID for Dflix
+                "baseUrl": "https://dflix.discoveryftp.net"
+            }
+        ]
     }
     
     if os.path.exists(apk_path):
