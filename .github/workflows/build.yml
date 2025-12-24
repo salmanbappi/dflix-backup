@@ -53,14 +53,14 @@ jobs:
       - name: Sign APK
         run: |
           APKSIGNER=$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)
-          "$APKSIGNER" sign --ks keystore.jks --ks-pass "pass:dflix123" --key-pass "pass:dflix123" --out dflix-v14.${{ github.run_number }}.apk dflix-unsigned.apk
+          "$APKSIGNER" sign --ks keystore.jks --ks-pass "pass:dflix123" --key-pass "pass:dflix123" --out dflix-v14.1${{ github.run_number }}.apk dflix-unsigned.apk
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v14.${{ github.run_number }}
-          name: Release v14.${{ github.run_number }}
-          files: dflix-v14.${{ github.run_number }}.apk
+          tag_name: v14.1${{ github.run_number }}
+          name: Release v14.1${{ github.run_number }}
+          files: dflix-v14.1${{ github.run_number }}.apk
           draft: false
           prerelease: false
           generate_release_notes: true
@@ -75,7 +75,7 @@ jobs:
           mkdir repo_dist
           mv index.min.json repo_dist/
           mv repo.json repo_dist/
-          cp dflix-v14.${{ github.run_number }}.apk repo_dist/
+          cp dflix-v14.1${{ github.run_number }}.apk repo_dist/
 
       - name: Deploy to Repo Branch
         uses: peaceiris/actions-gh-pages@v4
@@ -103,11 +103,11 @@ jobs:
           
           PKG_NAME="eu.kanade.tachiyomi.animeextension.all.dflix"
           VERSION_CODE="${{ github.run_number }}"
-          VERSION_NAME="14.$VERSION_CODE"
+          VERSION_NAME="14.1"
           TARGET_NAME="$PKG_NAME-v$VERSION_NAME-c$VERSION_CODE.apk"
           
           mkdir -p $REPO_DIR/apk
-          cp dflix-v14.$VERSION_CODE.apk $REPO_DIR/apk/$TARGET_NAME
+          cp dflix-v14.1$VERSION_CODE.apk $REPO_DIR/apk/$TARGET_NAME
           
           cd $REPO_DIR
           git config user.name "github-actions[bot]"
