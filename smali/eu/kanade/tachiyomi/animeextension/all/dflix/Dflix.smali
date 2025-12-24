@@ -2197,7 +2197,9 @@
 
     move-result-object p1
 
-    iget-object p2, p0, Leu/kanade/tachiyomi/animesource/online/AnimeHttpSource;->client:Lokhttp3/OkHttpClient;
+    invoke-virtual {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getClient()Lokhttp3/OkHttpClient;
+
+    move-result-object p2
 
     invoke-virtual {p2, p1}, Lokhttp3/OkHttpClient;->newCall(Lokhttp3/Request;)Lokhttp3/Call;
 
