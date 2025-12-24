@@ -3,10 +3,8 @@
 
 .method public static getFilterList()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
     .locals 10
-
     new-instance v0, Ljava/util/ArrayList;
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
-
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Header;
     const-string v2, "Search Mode"
     invoke-direct {v1, v2}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Header;-><init>(Ljava/lang/String;)V
@@ -48,7 +46,6 @@
     check-cast v3, [Ljava/lang/Object;
     invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animeextension/all/dflix/DflixSelect;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
     invoke-direct {v1, v0}, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;-><init>(Ljava/util/List;)V
     return-object v1
@@ -56,7 +53,6 @@
 
 .method public static getUrl(Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Ljava/lang/String;
     .locals 6
-
     invoke-virtual {p0}, Ljava/lang/String;->isEmpty()Z
     move-result v0
     if-nez v0, :cond_query
@@ -78,7 +74,6 @@
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
-
     packed-switch v1, :pswitch_data_0
     goto :default_mode
 :pswitch_0
@@ -161,7 +156,6 @@
 :pswitch_5
     const-string v0, "https://dflix.discoveryftp.net/m/lan/English"
     return-object v0
-
     .data
     :pswitch_data_0
     .packed-switch 0x0
