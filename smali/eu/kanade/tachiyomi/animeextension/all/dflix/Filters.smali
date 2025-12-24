@@ -14,7 +14,8 @@
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
     const-string v2, "Mode"
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->MODES:[Ljava/lang/String;
-    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/String;)V
+    check-cast v3, [Ljava/lang/Object;
+    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Separator;
     invoke-direct {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Separator;-><init>()V
@@ -26,22 +27,26 @@
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
     const-string v2, "4K Category"
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->CATEGORIES:[Ljava/lang/String;
-    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/String;)V
+    check-cast v3, [Ljava/lang/Object;
+    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
     const-string v2, "Genre"
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->GENRES:[Ljava/lang/String;
-    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/String;)V
+    check-cast v3, [Ljava/lang/Object;
+    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
     const-string v2, "Type"
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->CATEGORIES:[Ljava/lang/String;
-    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/String;)V
+    check-cast v3, [Ljava/lang/Object;
+    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
     const-string v2, "Year"
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->YEARS:[Ljava/lang/String;
-    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/String;)V
+    check-cast v3, [Ljava/lang/Object;
+    invoke-direct {v1, v2, v3}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;-><init>(Ljava/lang/String;[Ljava/lang/Object;)V
     invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     new-instance v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
@@ -64,14 +69,16 @@
     move-result-object v0
     return-object v0
 :cond_query
-    invoke-virtual {p1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;->getList()Ljava/util/List;
-    move-result-object v0
-
+    move-object v0, p1
     const/4 v1, 0x1
     invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->state:I
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->getState()Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Ljava/lang/Integer;
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+    move-result v1
 
     packed-switch v1, :pswitch_data_0
     goto :default_mode
@@ -81,10 +88,14 @@
     return-object v0
 :pswitch_1
     const/4 v1, 0x4
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->state:I
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->getState()Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Ljava/lang/Integer;
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+    move-result v1
     sget-object v2, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->CATEGORIES:[Ljava/lang/String;
     aget-object v1, v2, v1
     new-instance v2, Ljava/lang/StringBuilder;
@@ -97,10 +108,14 @@
     return-object v0
 :pswitch_2
     const/4 v1, 0x5
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->state:I
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->getState()Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Ljava/lang/Integer;
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+    move-result v1
     sget-object v2, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->GENRES:[Ljava/lang/String;
     aget-object v1, v2, v1
     new-instance v2, Ljava/lang/StringBuilder;
@@ -113,17 +128,25 @@
     return-object v0
 :pswitch_3
     const/4 v1, 0x6
-    invoke-interface {v0, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {p1, v1}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v1
     check-cast v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget v1, v1, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->state:I
+    invoke-virtual {v1}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->getState()Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Ljava/lang/Integer;
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+    move-result v1
     sget-object v2, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->CATEGORIES:[Ljava/lang/String;
     aget-object v1, v2, v1
     const/4 v2, 0x7
-    invoke-interface {v0, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+    invoke-interface {p1, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
     move-result-object v2
     check-cast v2, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
-    iget v2, v2, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->state:I
+    invoke-virtual {v2}, Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;->getState()Ljava/lang/Object;
+    move-result-object v2
+    check-cast v2, Ljava/lang/Integer;
+    invoke-virtual {v2}, Ljava/lang/Integer;->intValue()I
+    move-result v2
     sget-object v3, Leu/kanade/tachiyomi/animeextension/all/dflix/FilterData;->YEARS:[Ljava/lang/String;
     aget-object v2, v3, v2
     new-instance v3, Ljava/lang/StringBuilder;
