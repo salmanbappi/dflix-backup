@@ -88,7 +88,7 @@ jobs:
 
       - name: Download DhakaFlix APK
         run: |
-          gh release download --repo salmanbappi/dhakaflix --pattern "*.apk" --limit 1
+          gh release download --repo salmanbappi/dhakaflix --pattern "*.apk"
           echo "DHAKAFLIX_APK=$(ls dhakaflix-v*.apk)" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
