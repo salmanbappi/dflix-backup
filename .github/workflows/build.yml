@@ -100,6 +100,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate Repo Index
+        run: |
+          pip install PyYAML
+          python .github/scripts/generate_repo.py
+          mkdir repo_dist
+          mv index.min.json repo_dist/
+          cp dflix-v14.${{ github.run_number }}.apk repo_dist/
+
+      - name: Deploy to Repo Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: repo
+          publish_dir: repo_dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          keep_files: true
+
       - name: Commit Version Bump
         if: success()
         run: |
