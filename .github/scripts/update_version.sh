@@ -13,11 +13,14 @@ if [ -z "$CURRENT_CODE" ]; then
     exit 1
 fi
 
-NEW_CODE=$((CURRENT_CODE + 1))
+# Use run number if provided as argument, otherwise increment current
+if [ -n "$1" ]; then
+    NEW_CODE=$1
+else
+    NEW_CODE=$((CURRENT_CODE + 1))
+fi
 
-# Extract base versionName (e.g., 14.18)
-BASE_VERSION=$(grep "versionName:" "$APKTOOL_YML" | awk '{print $2}' | tr -d "'\"" | cut -d. -f1,2)
-NEW_VERSION="${BASE_VERSION}.${NEW_CODE}"
+NEW_VERSION="1.0.${NEW_CODE}"
 
 # Update apktool.yml
 sed -i "s/versionCode:[[:space:]]*$CURRENT_CODE/versionCode: $NEW_CODE/" "$APKTOOL_YML"

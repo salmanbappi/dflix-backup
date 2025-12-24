@@ -39,7 +39,7 @@ jobs:
       - name: Bump Version
         run: |
           chmod +x .github/scripts/update_version.sh
-          ./.github/scripts/update_version.sh
+          ./.github/scripts/update_version.sh ${{ github.run_number }}
 
       - name: Build APK
         run: |
