@@ -1,5 +1,6 @@
-.class publicLeu/kanade/tachiyomi/animeextension/all/dflix/DflixSelect;
+.class public Leu/kanade/tachiyomi/animeextension/all/dflix/DflixSelect;
 .super Leu/kanade/tachiyomi/animesource/model/AnimeFilter$Select;
+.source "DflixSelect.smali"
 
 .method public constructor <init>(Ljava/lang/String;[Ljava/lang/Object;)V
     .locals 1

@@ -1,5 +1,6 @@
-.class publicLeu/kanade/tachiyomi/animeextension/all/dflix/Filters;
+.class public Leu/kanade/tachiyomi/animeextension/all/dflix/Filters;
 .super Ljava/lang/Object;
+.source "Filters.smali"
 
 .method public static getFilterList()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
     .locals 10
@@ -75,7 +76,6 @@
     check-cast v1, Ljava/lang/Integer;
     invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
     move-result v1
-
     packed-switch v1, :pswitch_data_0
     goto :default_mode
 :pswitch_0
