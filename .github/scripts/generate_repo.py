@@ -23,11 +23,8 @@ def generate():
     apk_name = f"dflix-{version_suffix}.apk"
     apk_path = apk_name
     
-    # Use absolute URL for APK
-    apk_url = f"https://raw.githubusercontent.com/salmanbappi/dflix/repo/{apk_name}"
-    
     item = {
-        "name": "Dflix",
+        "name": "Aniyomi: Dflix",
         "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
         "apk": apk_name,
         "lang": "all",
@@ -43,10 +40,21 @@ def generate():
         item["size"] = get_apk_size(apk_path)
         item["sha256"] = get_file_sha256(apk_path)
 
+    # index.min.json
     repo_data = [item]
-    
     with open("index.min.json", "w") as f:
         json.dump(repo_data, f, separators=(',', ':'))
+
+    # repo.json
+    repo_info = {
+        "name": "SalmanBappi Extensions",
+        "author": "salmanbappi",
+        "description": "Custom extensions for Anikku/Aniyomi",
+        "website": "https://github.com/salmanbappi/dflix",
+        "baseUrl": "https://salmanbappi.github.io/dflix"
+    }
+    with open("repo.json", "w") as f:
+        json.dump(repo_info, f, indent=2)
 
 if __name__ == "__main__":
     generate()

@@ -106,6 +106,7 @@ jobs:
           python .github/scripts/generate_repo.py
           mkdir repo_dist
           mv index.min.json repo_dist/
+          mv repo.json repo_dist/
           cp dflix-v14.${{ github.run_number }}.apk repo_dist/
 
       - name: Deploy to Repo Branch
