@@ -201,11 +201,11 @@
 
     iput-wide v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->time:J
 
-    const-string v0, "https://dflix.discoveryftp.net"
+    const-string v0, "http://dflix.discoveryftp.net"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->rick:Ljava/lang/String;
 
-    const-string v0, "https://dflix.discoveryftp.net"
+    const-string v0, "http://dflix.discoveryftp.net"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->url:Ljava/lang/String;
 
