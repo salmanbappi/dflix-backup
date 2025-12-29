@@ -1115,14 +1115,14 @@
         }
     .end annotation
 
-    const-string v0, "div.col-md-12 a.btn"
+    const-string v0, "div.col-md-12 a.btn:contains(Watch), div.col-md-12 a.btn-primary, div.col-md-12 a.btn"
 
     .line 275
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lorg/jsoup/select/Elements;->last()Lorg/jsoup/nodes/Element;
+    invoke-virtual {v0}, Lorg/jsoup/select/Elements;->first()Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
@@ -1130,7 +1130,7 @@
 
     if-eqz v0, :cond_0
 
-    const-string v2, "href"
+    const-string v2, "abs:href"
 
     invoke-virtual {v0, v2}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
