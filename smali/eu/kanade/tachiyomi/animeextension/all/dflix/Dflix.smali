@@ -734,64 +734,34 @@
     return-object v0
 .end method
 
-.method private final getGlobalHeaders()Lokhttp3/Headers;
-    .locals 4
-
-    .line 48
-    new-instance v0, Lokhttp3/Headers$Builder;
-
-    invoke-direct {v0}, Lokhttp3/Headers$Builder;-><init>()V
-
-    const-string v2, "Accept"
-
-    const-string v3, "*/*"
-
-    .line 49
-    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
-
-    const-string v2, "User-Agent"
-    const-string v3, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
-
-    const-string v2, "Cookie"
-
-    .line 50
-    invoke-direct {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getCookieHeader()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-virtual {v0, v2, v3}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
-
-    .line 51
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {p0}, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->getBaseUrl()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    const/16 v1, 0x2f
-
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    const-string v2, "Referer"
-
-    invoke-virtual {v0, v2, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
-
-    .line 52
-    invoke-virtual {v0}, Lokhttp3/Headers$Builder;->build()Lokhttp3/Headers;
-
-    move-result-object v0
-
-    return-object v0
-.end method
+    override val client: OkHttpClient = network.client.newBuilder()
+        .addInterceptor { chain ->
+            val originalRequest = chain.request()
+            val url = originalRequest.url.toString()
+            
+            val requestBuilder = originalRequest.newBuilder()
+                .removeHeader("User-Agent")
+                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                .addHeader("Referer", "$baseUrl/")
+            
+            // Auto-inject cookies
+            val cookie = cm.getCookiesHeaders()
+            if (cookie.isNotBlank()) {
+                requestBuilder.addHeader("Cookie", cookie)
+            }
+            
+            val response = chain.proceed(requestBuilder.build())
+            
+            // If redirected to login, handle it
+            if (response.request.url.encodedPath.contains("login/destroy")) {
+                response.close()
+                cm.refreshCookies() // Trigger login
+                chain.proceed(requestBuilder.build())
+            } else {
+                response
+            }
+        }
+        .build()
 
 
 .method private final getMediaType(Lorg/jsoup/nodes/Document;)Ljava/lang/String;
