@@ -1115,14 +1115,14 @@
         }
     .end annotation
 
-    const-string v0, "div.col-md-12 a.btn"
+    const-string v0, "div.col-md-12 a.btn:contains(Watch), div.col-md-12 a.btn-primary, div.col-md-12 a.btn"
 
     .line 275
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
 
     move-result-object v0
 
-    invoke-virtual {v0}, Lorg/jsoup/select/Elements;->last()Lorg/jsoup/nodes/Element;
+    invoke-virtual {v0}, Lorg/jsoup/select/Elements;->first()Lorg/jsoup/nodes/Element;
 
     move-result-object v0
 
@@ -2400,20 +2400,6 @@
 
     .line 243
     :goto_0
-    const-string v3, "http://"
-
-    const-string v4, "https://"
-
-    const/4 v5, 0x0
-
-    const/4 v6, 0x4
-
-    const/4 v7, 0x0
-
-    invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
-
-    move-result-object v2
-
     move-object v4, v2
 
     invoke-interface {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getScanlator()Ljava/lang/String;
@@ -2443,7 +2429,7 @@
         
             const-string v0, "Referer"
         
-            const-string v1, "https://dflix.discoveryftp.net/"
+            const-string v1, "http://dflix.discoveryftp.net/"
         
             invoke-virtual {v6, v0, v1}, Lokhttp3/Headers$Builder;->add(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;
         
