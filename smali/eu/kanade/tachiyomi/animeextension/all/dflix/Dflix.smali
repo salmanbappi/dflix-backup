@@ -1103,7 +1103,7 @@
 .end method
 
 .method private final getMovieMedia(Lorg/jsoup/nodes/Document;)Ljava/util/List;
-    .locals 8
+    .locals 11
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",
@@ -1120,133 +1120,152 @@
     .line 275
     invoke-virtual {p1, v0}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
 
-    move-result-object v0
+    move-result-object p1
 
-    invoke-virtual {v0}, Lorg/jsoup/select/Elements;->last()Lorg/jsoup/nodes/Element;
+    const-string v0, "document.select(\"div.col-md-12 a.btn\")"
 
-    move-result-object v0
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
 
-    const/4 v1, 0x0
+    check-cast p1, Ljava/lang/Iterable;
 
-    if-eqz v0, :cond_0
+    .line 365
+    new-instance v0, Ljava/util/ArrayList;
 
-    const-string v2, "href"
+    const/16 v1, 0xa
 
-    invoke-virtual {v0, v2}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {p1, v1}, Lkotlin/collections/CollectionsKt;->collectionSizeOrDefault(Ljava/lang/Iterable;I)I
 
-    move-result-object v0
+    move-result v1
 
-    if-eqz v0, :cond_0
+    invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(I)V
 
-    invoke-virtual {v0}, Ljava/lang/String;->toString()Ljava/lang/String;
+    check-cast v0, Ljava/util/Collection;
 
-    move-result-object v2
+    .line 366
+    invoke-interface {p1}, Ljava/lang/Iterable;->iterator()Ljava/util/Iterator;
 
-    if-eqz v2, :cond_0
-
-    const-string v3, " "
-
-    const-string v4, "%20"
-
-    const/4 v5, 0x0
-
-    const/4 v6, 0x4
-
-    const/4 v7, 0x0
-
-    invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
-
-    move-result-object v0
-
-    goto :goto_0
-
-    :cond_0
-    move-object v0, v1
+    move-result-object p1
 
     :goto_0
-    const-string v2, ".badge-wrapper .badge-fill"
+    invoke-interface {p1}, Ljava/util/Iterator;->hasNext()Z
 
-    .line 276
-    invoke-virtual {p1, v2}, Lorg/jsoup/nodes/Document;->select(Ljava/lang/String;)Lorg/jsoup/select/Elements;
+    move-result v1
 
-    move-result-object p1
+    if-eqz v1, :cond_3
 
-    const-string v2, "document.select(\".badge-wrapper .badge-fill\")"
-
-    invoke-static {p1, v2}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
-
-    check-cast p1, Ljava/util/List;
-
-    invoke-static {p1}, Lkotlin/collections/CollectionsKt;->lastOrNull(Ljava/util/List;)Ljava/lang/Object;
-
-    move-result-object p1
-
-    check-cast p1, Lorg/jsoup/nodes/Element;
-
-    if-eqz p1, :cond_1
-
-    invoke-virtual {p1}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
-
-    move-result-object v2
-
-    if-eqz v2, :cond_1
-
-    const-string v3, "|"
-
-    const-string v4, "\u2022"
-
-    const/4 v5, 0x0
-
-    const/4 v6, 0x4
-
-    const/4 v7, 0x0
-
-    invoke-static/range {v2 .. v7}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+    invoke-interface {p1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
     move-result-object v1
 
-    .line 279
-    :cond_1
-    sget-object p1, Leu/kanade/tachiyomi/animesource/model/SEpisode;->Companion:Leu/kanade/tachiyomi/animesource/model/SEpisode$Companion;
+    .line 367
+    check-cast v1, Lorg/jsoup/nodes/Element;
 
-    invoke-virtual {p1}, Leu/kanade/tachiyomi/animesource/model/SEpisode$Companion;->create()Leu/kanade/tachiyomi/animesource/model/SEpisode;
+    .line 276
+    sget-object v2, Leu/kanade/tachiyomi/animesource/model/SEpisode;->Companion:Leu/kanade/tachiyomi/animesource/model/SEpisode$Companion;
 
-    move-result-object p1
+    invoke-virtual {v2}, Leu/kanade/tachiyomi/animesource/model/SEpisode$Companion;->create()Leu/kanade/tachiyomi/animesource/model/SEpisode;
 
-    const-string v2, ""
+    move-result-object v2
 
-    if-nez v0, :cond_2
+    const-string v3, "abs:href"
 
-    move-object v0, v2
+    .line 277
+    invoke-virtual {v1, v3}, Lorg/jsoup/nodes/Element;->attr(Ljava/lang/String;)Ljava/lang/String;
 
-    .line 280
-    :cond_2
-    invoke-interface {p1, v0}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setUrl(Ljava/lang/String;)V
+    move-result-object v4
 
-    const-string v0, "Movie"
+    if-nez v4, :cond_0
 
-    .line 281
-    invoke-interface {p1, v0}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setName(Ljava/lang/String;)V
-
-    const/high16 v0, 0x3f800000    # 1.0f
-
-    .line 282
-    invoke-interface {p1, v0}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setEpisode_number(F)V
-
-    if-nez v1, :cond_3
-
-    move-object v1, v2
-
-    .line 283
-    :cond_3
-    invoke-interface {p1, v1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setScanlator(Ljava/lang/String;)V
+    const-string v4, ""
 
     .line 278
-    invoke-static {p1}, Lkotlin/collections/CollectionsKt;->listOf(Ljava/lang/Object;)Ljava/util/List;
+    :cond_0
+    move-object v5, v4
 
-    move-result-object p1
+    const-string v6, " "
 
-    return-object p1
+    const-string v7, "%20"
+
+    const/4 v8, 0x0
+
+    const/4 v9, 0x4
+
+    const/4 v10, 0x0
+
+    invoke-static/range {v5 .. v10}, Lkotlin/text/StringsKt;->replace$default(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-interface {v2, v3}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setUrl(Ljava/lang/String;)V
+
+    .line 279
+    invoke-virtual {v1}, Lorg/jsoup/nodes/Element;->text()Ljava/lang/String;
+
+    move-result-object v1
+
+    if-nez v1, :cond_1
+
+    const-string v1, "Movie"
+
+    :cond_1
+    move-object v3, v1
+
+    check-cast v3, Ljava/lang/CharSequence;
+
+    invoke-static {v3}, Lkotlin/text/StringsKt;->trim(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-interface {v2, v1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setName(Ljava/lang/String;)V
+
+    const/high16 v1, 0x3f800000    # 1.0f
+
+    .line 280
+    invoke-interface {v2, v1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setEpisode_number(F)V
+
+    .line 281
+    invoke-interface {v2}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->getName()Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v3, "4K"
+
+    const/4 v4, 0x0
+
+    const/4 v5, 0x2
+
+    const/4 v6, 0x0
+
+    invoke-static {v1, v3, v4, v5, v6}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    const-string v1, "4K"
+
+    goto :goto_1
+
+    :cond_2
+    const-string v1, "Default"
+
+    :goto_1
+    invoke-interface {v2, v1}, Leu/kanade/tachiyomi/animesource/model/SEpisode;->setScanlator(Ljava/lang/String;)V
+
+    .line 367
+    invoke-interface {v0, v2}, Ljava/util/Collection;->add(Ljava/lang/Object;)Z
+
+    goto :goto_0
+
+    .line 368
+    :cond_3
+    check-cast v0, Ljava/util/List;
+
+    return-object v0
 .end method
 
 .method private static final getSearchAnime$fetchAnimeByType(Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -2400,9 +2419,9 @@
 
     .line 243
     :goto_0
-    const-string v3, "http://"
+    const-string v3, "https://"
 
-    const-string v4, "https://"
+    const-string v4, "http://"
 
     const/4 v5, 0x0
 
