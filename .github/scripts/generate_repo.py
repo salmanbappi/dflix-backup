@@ -26,8 +26,8 @@ def generate():
     apk_file = apks[0]
     
     item = {
-        "name": "Aniyomi: Dflix",
-        "pkg": "eu.kanade.tachiyomi.animeextension.all.dflix",
+        "name": "Aniyomi: Dflix backup",
+        "pkg": "eu.kanade.tachiyomi.animeextension.all.dflixbackup",
         "apk": apk_file,
         "lang": "all",
         "code": int(version_code),
