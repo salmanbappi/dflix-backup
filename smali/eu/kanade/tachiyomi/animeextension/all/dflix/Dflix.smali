@@ -193,7 +193,7 @@
     .line 27
     invoke-direct {p0}, Leu/kanade/tachiyomi/animesource/online/AnimeHttpSource;-><init>()V
 
-    const-string v0, "Dflix"
+    const-string v0, "Dflix backup"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;->name:Ljava/lang/String;
 
