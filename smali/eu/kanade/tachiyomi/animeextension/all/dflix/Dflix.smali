@@ -259,6 +259,14 @@
     return-void
 .end method
 
+.method public getId()J
+    .locals 2
+
+    const-wide v0, 0x47e874312f2e5ac4L
+
+    return-wide v0
+.end method
+
 .method public static final synthetic access$extractEpisode(Leu/kanade/tachiyomi/animeextension/all/dflix/Dflix;Lorg/jsoup/nodes/Document;)Ljava/util/List;
     .locals 0
 
